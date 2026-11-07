@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#071018" />
+  <title>ORBIT — Captain's Command</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="game">
+    <canvas id="scene" aria-label="Visão tridimensional da nave ORBIT"></canvas>
+    <div class="grain"></div>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ORBIT">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span><b>ORBIT</b><small>CAPTAIN'S COMMAND</small></span>
+      </a>
+      <div class="ship-state"><span class="live-dot"></span><span>U.S.S. WAYFARER</span><em>·</em><span id="sectorLabel">SETOR LYRA-04</span></div>
+      <div class="top-right"><span class="clock" id="clock">08:42:16</span><button class="icon-btn" id="soundBtn" title="Alternar áudio">♫</button><button class="captain" id="captainBtn"><span class="avatar">AC</span><span><b>CAPITÃ ARIA CHEN</b><small>COMANDO ATIVO</small></span><span class="chevron">⌄</span></button></div>
+    </header>
+    <main>
+      <section class="view" id="view">
+        <div class="view-top"><div class="location"><div class="eyebrow"><span class="live-dot"></span><span id="deckLabel">PONTE DE COMANDO</span><span class="separator">/</span><span id="deckNum">CONVÉS 01</span></div><h1 id="roomTitle">A ponte</h1><p id="roomSub">Setor de comando · tripulação em operação</p></div><div class="condition"><span class="sun">◉</span><div><b>EXTERIOR</b><small id="weather">Nebulosa de Vesper · 16°C</small></div></div></div>
+        <div class="scene-hud"><div class="crosshair"><span></span></div><div class="hud-label" id="lookLabel"><span class="keycap">WASD</span> MOVER <span class="keycap">MOUSE</span> OLHAR</div></div>
+        <div class="view-bottom"><div class="objective"><span class="objective-icon">⌖</span><div><small>OBJETIVO ATUAL</small><b id="objective">Verificar a anomalia no mapa estelar</b></div></div><div class="walk-hint"><span>INTERAGIR</span><kbd>E</kbd></div></div>
+        <div class="toast" id="toast"></div>
+      </section>
+      <aside class="sidebar">
+        <div class="sidebar-heading"><span>VISÃO GERAL</span><button class="dots">···</button></div>
+        <div class="crew-card"><div class="card-head"><span>TRIPULAÇÃO</span><span class="status-pill">● ESTÁVEL</span></div><div class="crew-count"><strong id="crewCount">42</strong><span>/ 48</span><div class="crew-avatars"><span>MC</span><span>JL</span><span>TS</span><span>+39</span></div></div><div class="meter"><i style="width:87%"></i></div><div class="tiny-row"><span>Moral da equipe</span><b id="morale">87%</b></div></div>
+        <div class="resource-block"><div class="card-head"><span>RECURSOS</span><button class="text-btn" data-panel="resources">DETALHES ↗</button></div><div class="resources"><div class="resource"><span class="res-icon aqua">◇</span><div><b id="resFuel">74%</b><small>Combustível</small></div><span class="trend">↗</span></div><div class="resource"><span class="res-icon violet">✳</span><div><b id="resPower">92%</b><small>Energia</small></div><span class="trend">↗</span></div><div class="resource"><span class="res-icon amber">⬡</span><div><b id="resSupplies">68%</b><small>Suprimentos</small></div><span class="trend down">↘</span></div></div></div>
+        <div class="mission-card"><div class="card-head"><span>MISSÃO ATIVA</span><span class="mission-mark">✦</span></div><div class="mission-title" id="missionTitle">Sussurros de Vesper</div><p id="missionDesc">Investigue a anomalia energética detectada além do cinturão.</p><div class="mission-meta"><span>◷ 02h 18m restantes</span><span>RECOMPENSA <b>₡ 1.200</b></span></div><button class="outline-btn" data-panel="missions">CENTRAL DE MISSÕES <span>↗</span></button></div>
+        <div class="sidebar-footer"><div class="funds"><span>FUNDOS DA NAVE</span><b id="credits">₡ 8.450</b></div><div class="footer-line"><span>SEMANA 14 · DIA 06</span><span class="save-state"><i></i> SALVO</span></div></div>
+      </aside>
+    </main>
+    <nav class="dock">
+      <div class="dock-group"><button class="dock-btn active" data-panel="bridge"><span>⌂</span><small>PONTE</small></button><button class="dock-btn" data-panel="crew"><span>♙</span><small>TRIPULAÇÃO</small><i class="badge">2</i></button><button class="dock-btn" data-panel="departments"><span>▤</span><small>SETORES</small></button><button class="dock-btn" data-panel="map"><span>✧</span><small>MAPA ESTELAR</small></button><button class="dock-btn" data-panel="missions"><span>⌖</span><small>MISSÕES</small></button></div>
+      <div class="dock-right"><button class="dock-btn compact" data-panel="reports"><span>▧</span><small>RELATÓRIOS</small></button><button class="dock-btn compact" data-panel="upgrades"><span>⤴</span><small>MELHORIAS</small></button><span class="dock-divider"></span><button class="menu-btn" id="menuBtn"><span>☰</span></button></div>
+    </nav>
+    <div class="modal-wrap" id="modalWrap" aria-hidden="true"><section class="modal" id="modal"><button class="close-modal" id="closeModal">×</button><div id="modalContent"></div></section></div>
+    <button type="button" id="interaction" class="interaction" aria-label="Interagir"><span class="keycap">E</span><span id="interactionText">INTERAGIR</span></button>
+    <div class="help" id="help"><button class="help-close" id="helpClose">×</button><span class="help-kicker">PRIMEIRO TURNO</span><b>Bem-vinda a bordo, capitã.</b><p>Explore a ponte com <kbd>W A S D</kbd> e mova o mouse para olhar ao redor. Acesse os setores pelo terminal ou selecione uma missão no mapa.</p></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
